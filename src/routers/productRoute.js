@@ -11,6 +11,6 @@ const upload = require("../cloudinary/multer");
 Router.route('/getallproducts').get(getAllProducts);
 Router.route('/search').get(searchProducts);
 Router.route('/create').post(upload.single("image"), verifyToken, createOneProduct);
-Router.route('/update/:productId').patch(upload.single("image"), verifyToken, updateOneProduct);
+Router.route('/update/:productId').put(upload.single("image"), verifyToken, updateOneProduct);
 Router.route('/delete/:productId').delete(verifyToken, deleteOneProduct);
 module.exports = Router;
