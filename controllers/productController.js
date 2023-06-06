@@ -7,11 +7,11 @@ exports.getAllProducts = async (req, res, next) => {
         .then(products => {
             res.status(200).json({ 
                 status: "success",
-                data: {products},
+                data: products,
             })
         })
         .catch (err => {
-            next(err)
+            next(err);
     })
 }
 
@@ -24,56 +24,56 @@ exports.searchProducts = async (req, res, next) => {
                 { "name" : { $regex: req.query.keyword, $options: 'i' } },
             	{ "description" : { $regex: req.query.keyword, $options: 'i' } },];
             }
-            let product=await Product.find(query)
+            let product = await Product.find(query);
             return res.status(200).send({
                 message:'success',
-                data:product
+                data: product
             })
     } catch (error) {
-        next(err)
+        next(err);
     }
 }
 
 //createOnePosts
 exports.createOneProduct = async (req, res, next) => {
     try {
-        const userId = req.body.userId
+        const userId = req.body.userId;
         const result = await cloudinary.uploader.upload(req.file.path);
-        const product = await Product.create({...req.body, seller:userId, image: result.secure_url, cloudinary_id: result.public_id})
+        const product = await Product.create({...req.body, seller:userId, image: result.secure_url, cloudinary_id: result.public_id});
         res.status(200).json({
             status: "success",
-            data: {product}
+            data: product
         })
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 
 //updateOnePosts
 exports.updateOneProduct = async (req, res, next) => {
     try {
-        const productId = req.params.productId
-        const product = await Product.findByIdAndUpdate( productId, req.body, {new: true, runValidator: true}) // res noi dung update
+        const productId = req.params.productId;
+        const product = await Product.findByIdAndUpdate( productId, req.body, {new: true, runValidator: true});
         res.status(200).json({
             status: "success",
-            data: {product}
+            data: product
         })
         
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 
 //deleteOnePosts
 exports.deleteOneProduct = async (req, res, next) => {
     try {
-        const productId = req.params.productId
-        await Product.findByIdAndDelete(productId)
+        const productId = req.params.productId;
+        await Product.findByIdAndDelete(productId);
         res.status(200).json({
             status: "success",
             message: "Delete successfull"
         })
     } catch (error) {
-        next(error)
+        next(error);
     }
 } 
