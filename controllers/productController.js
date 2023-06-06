@@ -20,9 +20,7 @@ exports.searchProducts = async (req, res, next) => {
     try {
         let query={};
         if(req.query.keyword){
-            query.$or=[
-                { "name" : { $regex: req.query.keyword, $options: 'i' } },
-            	{ "description" : { $regex: req.query.keyword, $options: 'i' } },];
+            query.$or=[ { "name" : { $regex: req.query.keyword, $options: 'i' } } ];
             }
             let product = await Product.find(query);
             return res.status(200).send({
