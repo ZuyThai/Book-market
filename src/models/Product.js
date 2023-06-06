@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    author: {type: String},
     image: {type: String},
     cloudinary_id: {type: String}
 }, {timestamps: true})
