@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/products', productRoute);
 app.use('/api/v1/user', userRoute);
-app.get('/', (req, res) => res.send('halo'));
+app.get('/test', (req, res) => res.send('halo'));
 
 //err
 app.all('*', (req, res, next) => {
