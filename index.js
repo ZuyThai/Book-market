@@ -20,10 +20,20 @@ app.use('/api/v1/user', userRoute);
 app.get('/test', (req, res) => res.send('halo'));
 
 //err
-app.all('*', (req, res, next) => {
-  const err = new Error('Page not found');
-  err.statusCode = 404;
-  next(err);
+app.use('*', (err, req, res, next) => {
+  const message = err.message || "Server is not respond";
+  const status = err.status || 500;
+  // if (req.url === '/ping.html' && req.method ==='GET') {
+  //     //AWS ELB pings this URL to make sure the instance is running
+  //     //smoothly
+  //     res.writeHead(200, {
+  //         'Content-Type': 'text/plain',
+  //         'Content-Length': 2
+  //     });
+  //     res.write('OK');
+  //     res.end();
+  // }
+  res.status(status).json({message});
 })
 
 const port = process.env.APP_PORT
